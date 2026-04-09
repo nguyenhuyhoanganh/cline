@@ -1,0 +1,78 @@
+---
+name: code-reviewer
+description: Use when code review is needed and subagent dispatch is unavailable or unnecessary.
+---
+
+# Code Reviewer
+
+Run a production-focused review in the current session.
+
+## Inputs
+
+- `WHAT_WAS_IMPLEMENTED`
+- `PLAN_OR_REQUIREMENTS`
+- `BASE_SHA`
+- `HEAD_SHA`
+- `DESCRIPTION`
+
+If values are missing, derive them before reviewing:
+
+```bash
+BASE_SHA=$(git rev-parse HEAD~1)
+HEAD_SHA=$(git rev-parse HEAD)
+```
+
+## Review Procedure
+
+1. Inspect change scope:
+
+```bash
+git diff --stat {BASE_SHA}..{HEAD_SHA}
+git diff {BASE_SHA}..{HEAD_SHA}
+```
+
+2. Evaluate:
+- Correctness and behavior regressions
+- Architecture and maintainability
+- Test quality and coverage
+- Security and reliability risks
+- Requirement/spec compliance
+
+3. Categorize findings:
+- Critical (must fix)
+- Important (should fix before proceeding)
+- Minor (nice to have)
+
+4. Provide merge assessment:
+- `Ready to merge: Yes / No / With fixes`
+
+## Output Format
+
+### Strengths
+[Specific strengths]
+
+### Issues
+
+#### Critical (Must Fix)
+[or `None`]
+
+#### Important (Should Fix)
+[or `None`]
+
+#### Minor (Nice to Have)
+[or `None`]
+
+For each issue include:
+- File:line
+- Problem
+- Why it matters
+- Fix direction
+
+### Recommendations
+[Optional process or design improvements]
+
+### Assessment
+
+**Ready to merge?** [Yes/No/With fixes]
+
+**Reasoning:** [1-2 sentences]

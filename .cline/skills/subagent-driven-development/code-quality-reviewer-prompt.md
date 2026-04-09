@@ -2,12 +2,14 @@
 
 Use this template when dispatching a code quality reviewer subagent.
 
+If subagent dispatch is unavailable, run `superpowers:code-reviewer` inline with the same inputs.
+
 **Purpose:** Verify implementation is well-built (clean, tested, maintainable)
 
 **Only dispatch after spec compliance review passes.**
 
 ```
-Task tool (superpowers:code-reviewer):
+Cline subagent flow (`use_subagents`) with reviewer prompt:
   Use template at requesting-code-review/code-reviewer.md
 
   WHAT_WAS_IMPLEMENTED: [from implementer's report]
@@ -15,6 +17,12 @@ Task tool (superpowers:code-reviewer):
   BASE_SHA: [commit before task]
   HEAD_SHA: [current commit]
   DESCRIPTION: [task summary]
+```
+
+Inline fallback (no subagent):
+
+```
+Use skill superpowers:code-reviewer with the same placeholders and review scope.
 ```
 
 **In addition to standard code quality concerns, the reviewer should check:**

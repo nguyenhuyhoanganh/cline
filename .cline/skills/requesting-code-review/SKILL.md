@@ -5,7 +5,10 @@ description: Use when completing tasks, implementing major features, or before m
 
 # Requesting Code Review
 
-Dispatch superpowers:code-reviewer subagent to catch issues before they cascade. The reviewer gets precisely crafted context for evaluation — never your session's history. This keeps the reviewer focused on the work product, not your thought process, and preserves your own context for continued work.
+Use `superpowers:code-reviewer` to catch issues before they cascade.
+
+- If subagents are available: dispatch `superpowers:code-reviewer` as a subagent.
+- If subagents are unavailable: run `superpowers:code-reviewer` inline in the current session.
 
 **Core principle:** Review early, review often.
 
@@ -29,9 +32,10 @@ BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
 HEAD_SHA=$(git rev-parse HEAD)
 ```
 
-**2. Dispatch code-reviewer subagent:**
+**2. Run reviewer (subagent or inline):**
 
-Use Task tool with superpowers:code-reviewer type, fill template at `code-reviewer.md`
+- Subagent mode: Use Cline subagent flow (`use_subagents`) with reviewer prompt from `code-reviewer.md`
+- Inline mode: Invoke skill `superpowers:code-reviewer` directly using the same placeholders
 
 **Placeholders:**
 - `{WHAT_WAS_IMPLEMENTED}` - What you just built
@@ -56,14 +60,14 @@ You: Let me request code review before proceeding.
 BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
 HEAD_SHA=$(git rev-parse HEAD)
 
-[Dispatch superpowers:code-reviewer subagent]
+[Run superpowers:code-reviewer]
   WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
   PLAN_OR_REQUIREMENTS: Task 2 from docs/superpowers/plans/deployment-plan.md
   BASE_SHA: a7981ec
   HEAD_SHA: 3df7661
   DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
 
-[Subagent returns]:
+[Reviewer returns]:
   Strengths: Clean architecture, real tests
   Issues:
     Important: Missing progress indicators
