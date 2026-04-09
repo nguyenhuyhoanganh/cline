@@ -1,6 +1,6 @@
 # Write Plan Workflow
 
-Use skill `superpowers:writing-plans` for this request.
+Use skill `writing-plans` for this request.
 
 Then:
 
