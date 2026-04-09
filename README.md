@@ -36,6 +36,6 @@ chmod +x .clinerules/hooks/TaskStart
 
 If Cline subagents are disabled, use:
 
-- `superpowers:requesting-code-review` -> falls back to inline `superpowers:code-reviewer`
+- `requesting-code-review` -> falls back to inline `code-reviewer`
 
 This keeps review workflow usable without `use_subagents`.
