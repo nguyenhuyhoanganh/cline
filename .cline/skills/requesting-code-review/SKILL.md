@@ -5,17 +5,17 @@ description: Use when completing tasks, implementing major features, or before m
 
 # Requesting Code Review
 
-Use `superpowers:code-reviewer` to catch issues before they cascade.
+Use `code-reviewer` to catch issues before they cascade.
 
-- If subagents are available: dispatch `superpowers:code-reviewer` as a subagent.
-- If subagents are unavailable: run `superpowers:code-reviewer` inline in the current session.
+- If subagents are available: dispatch `code-reviewer` as a subagent.
+- If subagents are unavailable: run `code-reviewer` inline in the current session.
 
 **Core principle:** Review early, review often.
 
 ## When to Request Review
 
 **Mandatory:**
-- After each task in subagent-driven development
+- After each major implementation checkpoint
 - After completing major feature
 - Before merge to main
 
@@ -35,7 +35,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 **2. Run reviewer (subagent or inline):**
 
 - Subagent mode: Use Cline subagent flow (`use_subagents`) with reviewer prompt from `code-reviewer.md`
-- Inline mode: Invoke skill `superpowers:code-reviewer` directly using the same placeholders
+- Inline mode: Invoke skill `code-reviewer` directly using the same placeholders
 
 **Placeholders:**
 - `{WHAT_WAS_IMPLEMENTED}` - What you just built
@@ -60,7 +60,7 @@ You: Let me request code review before proceeding.
 BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
 HEAD_SHA=$(git rev-parse HEAD)
 
-[Run superpowers:code-reviewer]
+[Run code-reviewer]
   WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
   PLAN_OR_REQUIREMENTS: Task 2 from docs/superpowers/plans/deployment-plan.md
   BASE_SHA: a7981ec

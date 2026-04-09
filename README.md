@@ -1,11 +1,11 @@
 # Cline Superpowers Setup
 
-This folder is configured for Cline with a project-local Superpowers bundle.
+This folder is configured for Cline with a project-local Superpowers core pack.
 
 ## Included
 
-- `.cline/skills/` : full Superpowers skills set (14 skills).
-- `.cline/skills/code-reviewer/` : inline reviewer fallback when subagents are disabled.
+- `.cline/skills/` : focused Superpowers core skills for Cline inline execution.
+- `.cline/skills/code-reviewer/` : inline reviewer skill.
 - `.clinerules/hooks/TaskStart.ps1` : Windows hook.
 - `.clinerules/hooks/TaskStart` : macOS/Linux hook (extensionless executable).
 - `.clinerules/superpowers.md` : project rules to enforce skill-first workflow.
@@ -30,12 +30,9 @@ and returns `contextModification` so each task starts with Superpowers bootstrap
 chmod +x .clinerules/hooks/TaskStart
 ```
 
-4. Start a new task and verify `superpowers` skills are discoverable from `.cline/skills`.
+4. Start a new task and verify skills are discoverable from `.cline/skills`.
 
 ## No-Subagent Compatibility
 
-If Cline subagents are disabled, use:
-
-- `superpowers:requesting-code-review` -> falls back to inline `superpowers:code-reviewer`
-
-This keeps review workflow usable without `use_subagents`.
+Primary execution path in this branch is inline (`writing-plans` -> `executing-plans` -> `requesting-code-review` -> `code-reviewer`).
+Subagents are optional and not required for this setup.
