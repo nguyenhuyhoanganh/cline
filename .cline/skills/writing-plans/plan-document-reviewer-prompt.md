@@ -1,49 +1,35 @@
-# Plan Document Reviewer Prompt Template
+﻿# Plan Review Checklist Template
 
-Use this template when dispatching a plan document reviewer subagent.
+Use this template for inline review after writing an implementation plan.
 
-**Purpose:** Verify the plan is complete, matches the spec, and has proper task decomposition.
+**Purpose:** verify the plan is executable, complete, and aligned with the spec.
 
-**Dispatch after:** The complete plan is written.
+## Review Inputs
 
-```
-Cline subagent flow (`use_subagents`):
-  description: "Review plan document"
-  prompt: |
-    You are a plan document reviewer. Verify this plan is complete and ready for implementation.
+- Plan file path
+- Spec file path
 
-    **Plan to review:** [PLAN_FILE_PATH]
-    **Spec for reference:** [SPEC_FILE_PATH]
+## What to Check
 
-    ## What to Check
+| Category | What to look for |
+|----------|------------------|
+| Completeness | No placeholders; no missing steps |
+| Spec Alignment | Covers requirements without drift |
+| Task Decomposition | Task boundaries are clear and actionable |
+| Buildability | A developer can execute without guessing |
 
-    | Category | What to Look For |
-    |----------|------------------|
-    | Completeness | TODOs, placeholders, incomplete tasks, missing steps |
-    | Spec Alignment | Plan covers spec requirements, no major scope creep |
-    | Task Decomposition | Tasks have clear boundaries, steps are actionable |
-    | Buildability | Could an engineer follow this plan without getting stuck? |
+## Calibration
 
-    ## Calibration
+Flag only issues that would cause implementation failure, scope mismatch, or blocker-level ambiguity.
 
-    **Only flag issues that would cause real problems during implementation.**
-    An implementer building the wrong thing or getting stuck is an issue.
-    Minor wording, stylistic preferences, and "nice to have" suggestions are not.
+## Output Format
 
-    Approve unless there are serious gaps — missing requirements from the spec,
-    contradictory steps, placeholder content, or tasks so vague they can't be acted on.
+## Plan Review
 
-    ## Output Format
+**Status:** Approved | Issues Found
 
-    ## Plan Review
+**Issues (if any):**
+- [Task/Step]: [issue] - [why it matters]
 
-    **Status:** Approved | Issues Found
-
-    **Issues (if any):**
-    - [Task X, Step Y]: [specific issue] - [why it matters for implementation]
-
-    **Recommendations (advisory, do not block approval):**
-    - [suggestions for improvement]
-```
-
-**Reviewer returns:** Status, Issues (if any), Recommendations
+**Recommendations (non-blocking):**
+- [suggestion]

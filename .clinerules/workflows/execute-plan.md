@@ -1,6 +1,6 @@
-# Execute Plan Workflow
+﻿# Execute Plan Workflow
 
-Use skill `executing-plans` or `subagent-driven-development`.
+Use skill `executing-plans`.
 
 Then:
 

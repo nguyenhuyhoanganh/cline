@@ -1,49 +1,40 @@
-# Spec Document Reviewer Prompt Template
+﻿# Spec Review Checklist Template
 
-Use this template when dispatching a spec document reviewer subagent.
+Use this template for inline review after writing a spec document.
 
-**Purpose:** Verify the spec is complete, consistent, and ready for implementation planning.
+**Purpose:** verify the spec is complete, consistent, and implementation-ready.
 
-**Dispatch after:** Spec document is written to docs/superpowers/specs/
+**Run after:** spec is written to `docs/superpowers/specs/`.
 
-```
-Cline subagent flow (`use_subagents`):
-  description: "Review spec document"
-  prompt: |
-    You are a spec document reviewer. Verify this spec is complete and ready for planning.
+## Review Inputs
 
-    **Spec to review:** [SPEC_FILE_PATH]
+- Spec file path
+- Relevant request context
 
-    ## What to Check
+## What to Check
 
-    | Category | What to Look For |
-    |----------|------------------|
-    | Completeness | TODOs, placeholders, "TBD", incomplete sections |
-    | Consistency | Internal contradictions, conflicting requirements |
-    | Clarity | Requirements ambiguous enough to cause someone to build the wrong thing |
-    | Scope | Focused enough for a single plan — not covering multiple independent subsystems |
-    | YAGNI | Unrequested features, over-engineering |
+| Category | What to look for |
+|----------|------------------|
+| Completeness | No TODO/TBD/placeholders |
+| Consistency | No internal contradictions |
+| Clarity | Requirements are unambiguous |
+| Scope | Fits one implementation plan |
+| YAGNI | No unrequested scope expansion |
 
-    ## Calibration
+## Calibration
 
-    **Only flag issues that would cause real problems during implementation planning.**
-    A missing section, a contradiction, or a requirement so ambiguous it could be
-    interpreted two different ways — those are issues. Minor wording improvements,
-    stylistic preferences, and "sections less detailed than others" are not.
+Flag only issues that would block planning or cause wrong implementation.
 
-    Approve unless there are serious gaps that would lead to a flawed plan.
+Do not block on stylistic wording preferences.
 
-    ## Output Format
+## Output Format
 
-    ## Spec Review
+## Spec Review
 
-    **Status:** Approved | Issues Found
+**Status:** Approved | Issues Found
 
-    **Issues (if any):**
-    - [Section X]: [specific issue] - [why it matters for planning]
+**Issues (if any):**
+- [Section]: [issue] - [why it matters]
 
-    **Recommendations (advisory, do not block approval):**
-    - [suggestions for improvement]
-```
-
-**Reviewer returns:** Status, Issues (if any), Recommendations
+**Recommendations (non-blocking):**
+- [suggestion]

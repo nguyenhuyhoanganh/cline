@@ -1,6 +1,6 @@
----
+﻿---
 name: code-reviewer
-description: Use when code review is needed and subagent dispatch is unavailable or unnecessary.
+description: Use when an inline production-readiness review is needed for a defined commit range.
 ---
 
 # Code Reviewer
@@ -15,7 +15,7 @@ Run a production-focused review in the current session.
 - `HEAD_SHA`
 - `DESCRIPTION`
 
-If values are missing, derive them before reviewing:
+If values are missing, derive them first:
 
 ```bash
 BASE_SHA=$(git rev-parse HEAD~1)
@@ -32,43 +32,52 @@ git diff {BASE_SHA}..{HEAD_SHA}
 ```
 
 2. Evaluate:
-- Correctness and behavior regressions
+
+- Correctness and regressions
 - Architecture and maintainability
 - Test quality and coverage
-- Security and reliability risks
-- Requirement/spec compliance
+- Security and reliability
+- Requirement compliance
 
 3. Categorize findings:
-- Critical (must fix)
-- Important (should fix before proceeding)
-- Minor (nice to have)
+
+- Critical
+- Important
+- Minor
 
 4. Provide merge assessment:
+
 - `Ready to merge: Yes / No / With fixes`
 
 ## Output Format
 
 ### Strengths
+
 [Specific strengths]
 
 ### Issues
 
 #### Critical (Must Fix)
+
 [or `None`]
 
 #### Important (Should Fix)
+
 [or `None`]
 
 #### Minor (Nice to Have)
+
 [or `None`]
 
 For each issue include:
+
 - File:line
 - Problem
 - Why it matters
 - Fix direction
 
 ### Recommendations
+
 [Optional process or design improvements]
 
 ### Assessment
