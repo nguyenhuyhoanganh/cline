@@ -1,18 +1,21 @@
 # Cline Superpowers Setup
 
-This repository contains two validated setup options for running Superpowers workflows in Cline.
+This repository contains validated setup branches for running Superpowers workflows in Cline.
 
 ## Option Branches
 
-- `option1-core-pack`: Lean setup, inline-first, no dependency on subagent workflow.
-- `option2-full-compat`: Full Superpowers skill bundle with Cline-compatible wiring.
+- `superpowers-core`: Lean setup, inline-first, no dependency on subagent workflow.
+- `superpowers-full`: Full Superpowers skill bundle with compatibility wiring.
+- `refactor-for-cline`: Refactored sequential single-agent variant.
 
 To use an option:
 
 ```bash
-git checkout option1-core-pack
+git checkout superpowers-core
 # or
-git checkout option2-full-compat
+git checkout superpowers-full
+# or
+git checkout refactor-for-cline
 ```
 
 ## What Is Installed
@@ -38,7 +41,7 @@ Core skills available in both options:
 - `systematic-debugging`: Root-cause-first debugging workflow.
 - `verification-before-completion`: Prevents "done" claims without evidence.
 
-Only in `option2-full-compat`:
+Only in `superpowers-full`:
 
 - `dispatching-parallel-agents`
 - `subagent-driven-development`
@@ -81,7 +84,15 @@ You can call workflows directly in task prompts, for example:
 chmod +x .clinerules/hooks/TaskStart
 ```
 
+## No-Subagent Compatibility
+
+If Cline subagents are disabled, use:
+
+- `requesting-code-review` -> falls back to inline `code-reviewer`
+
+This keeps review workflow usable without `use_subagents`.
+
 ## Recommended Choice
 
-- Choose `option1-core-pack` if you want minimal, stable, single-agent execution.
-- Choose `option2-full-compat` if you want the complete Superpowers process surface.
+- Choose `superpowers-core` if you want minimal, stable, single-agent execution.
+- Choose `superpowers-full` if you want the complete Superpowers process surface.

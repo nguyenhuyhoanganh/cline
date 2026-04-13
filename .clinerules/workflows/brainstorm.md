@@ -1,6 +1,6 @@
 # Brainstorm Workflow
 
-Use skill `superpowers:brainstorming` for this request.
+Use skill `brainstorming` for this request.
 
 Then:
 

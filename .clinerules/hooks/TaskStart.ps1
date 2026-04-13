@@ -26,7 +26,7 @@ $context = @"
 <EXTREMELY_IMPORTANT>
 You have superpowers.
 
-Below is the full content of your 'superpowers:using-superpowers' skill - your introduction to using skills.
+Below is the full content of your 'using-superpowers' skill - your introduction to using skills.
 
 $skillContent
 </EXTREMELY_IMPORTANT>
