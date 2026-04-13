@@ -10,3 +10,4 @@ Rules:
 - During implementation, apply `test-driven-development` where feasible.
 - Before finishing, run `requesting-code-review`.
 - If multiple skills could apply, prefer process skills first, then implementation skills.
+- Preserve multi-agent orchestration as capability-gated architecture: use read-only subagents now, and enable write-capable subagent lanes only when Cline tooling and project governance explicitly allow it.

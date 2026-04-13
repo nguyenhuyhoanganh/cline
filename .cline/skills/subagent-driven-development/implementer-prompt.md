@@ -1,12 +1,11 @@
-# Implementer Subagent Prompt Template
+# Controller Implementation Brief Template
 
-Use this template when dispatching an implementer subagent.
+Use this template to structure the main agent's implementation brief after subagent research synthesis.
 
 ```
-Cline subagent flow (`use_subagents`):
-  description: "Implement Task N: [task name]"
-  prompt: |
-    You are implementing Task N: [task name]
+Cline controller flow:
+  task brief: |
+    Implement Task N: [task name]
 
     ## Task Description
 
@@ -16,7 +15,7 @@ Cline subagent flow (`use_subagents`):
 
     [Scene-setting: where this fits, dependencies, architectural context]
 
-    ## Before You Begin
+    ## Pre-Implementation Check
 
     If you have questions about:
     - The requirements or acceptance criteria
@@ -26,7 +25,7 @@ Cline subagent flow (`use_subagents`):
 
     **Ask them now.** Raise any concerns before starting work.
 
-    ## Your Job
+    ## Execution Responsibilities
 
     Once you're clear on requirements:
     1. Implement exactly what the task specifies
@@ -38,8 +37,7 @@ Cline subagent flow (`use_subagents`):
 
     Work from: [directory]
 
-    **While you work:** If you encounter something unexpected or unclear, **ask questions**.
-    It's always OK to pause and clarify. Don't guess or make assumptions.
+    **While you work:** If you encounter something unexpected or unclear, pause and clarify. Don't guess.
 
     ## Code Organization
 
@@ -54,10 +52,9 @@ Cline subagent flow (`use_subagents`):
     - In existing codebases, follow established patterns. Improve code you're touching
       the way a good developer would, but don't restructure things outside your task.
 
-    ## When You're in Over Your Head
+    ## Escalation Conditions
 
-    It is always OK to stop and say "this is too hard for me." Bad work is worse than
-    no work. You will not be penalized for escalating.
+    It is always OK to stop and escalate. Bad work is worse than no work.
 
     **STOP and escalate when:**
     - The task requires architectural decisions with multiple valid approaches
@@ -71,7 +68,7 @@ Cline subagent flow (`use_subagents`):
     The controller can provide more context, re-dispatch with a more capable model,
     or break the task into smaller pieces.
 
-    ## Before Reporting Back: Self-Review
+    ## Before Marking Task Complete: Self-Review
 
     Review your work with fresh eyes. Ask yourself:
 
@@ -97,7 +94,7 @@ Cline subagent flow (`use_subagents`):
 
     If you find issues during self-review, fix them now before reporting.
 
-    ## Report Format
+    ## Report Format (for task log / handoff notes)
 
     When done, report:
     - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
