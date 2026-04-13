@@ -15,6 +15,8 @@ When you have multiple unrelated failures (different test files, different subsy
 
 **Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
 
+**Architecture note:** Keep parallel-agent decomposition as a stable design pattern. Current execution is read-only research dispatch. If future Cline capabilities add write-capable subagents, reuse the same decomposition boundaries with explicit ownership and controller-enforced review gates.
+
 ## When to Use
 
 ```dot
@@ -55,24 +57,24 @@ Group failures by what's broken:
 - File B tests: Batch completion behavior
 - File C tests: Abort functionality
 
-Each domain is independent - fixing tool approval doesn't affect abort tests.
+Each domain is independent - investigating tool approval doesn't affect abort behavior tracing.
 
 ### 2. Create Focused Agent Tasks
 
 Each agent gets:
 - **Specific scope:** One test file or subsystem
-- **Clear goal:** Make these tests pass
-- **Constraints:** Don't change other code
-- **Expected output:** Summary of what you found and fixed
+- **Clear goal:** Produce evidence and root-cause hypotheses
+- **Constraints:** Read-only research only
+- **Expected output:** Summary of what you found, with concrete file paths and next implementation steps
 
 ### 3. Dispatch in Parallel
 
-```typescript
-// In Claude Code / AI environment
-Task("Fix agent-tool-abort.test.ts failures")
-Task("Fix batch-completion-behavior.test.ts failures")
-Task("Fix tool-approval-race-conditions.test.ts failures")
-// All three run concurrently
+```text
+// In Cline, dispatch parallel read-only research prompts via use_subagents
+Subagent 1: "Investigate agent-tool-abort.test.ts failures and trace event timing assumptions"
+Subagent 2: "Investigate batch-completion-behavior.test.ts failures and trace execution path"
+Subagent 3: "Investigate tool-approval-race-conditions.test.ts and find race source"
+// All three run concurrently; controller integrates and implements fixes locally
 ```
 
 ### 4. Review and Integrate
@@ -91,7 +93,7 @@ Good agent prompts are:
 3. **Specific about output** - What should the agent return?
 
 ```markdown
-Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts:
+Investigate the 3 failing tests in src/agents/agent-tool-abort.test.ts:
 
 1. "should abort tool with partial output capture" - expects 'interrupted at' in message
 2. "should handle mixed completed and aborted tools" - fast tool aborted instead of completed
@@ -101,14 +103,14 @@ These are timing/race condition issues. Your task:
 
 1. Read the test file and understand what each test verifies
 2. Identify root cause - timing issues or actual bugs?
-3. Fix by:
-   - Replacing arbitrary timeouts with event-based waiting
-   - Fixing bugs in abort implementation if found
-   - Adjusting test expectations if testing changed behavior
+3. Produce evidence-backed recommendations:
+   - Where arbitrary timeouts should be replaced with condition-based waits
+   - Which implementation paths likely contain abort/race bugs
+   - Which tests may assert stale assumptions
 
-Do NOT just increase timeouts - find the real issue.
+Do NOT propose blind timeout increases. Find evidence.
 
-Return: Summary of what you found and what you fixed.
+Return: Summary of root cause hypotheses, evidence, and exact files the controller should edit.
 ```
 
 ## Common Mistakes
@@ -119,8 +121,8 @@ Return: Summary of what you found and what you fixed.
 **âŒ No context:** "Fix the race condition" - agent doesn't know where
 **âœ… Context:** Paste the error messages and test names
 
-**âŒ No constraints:** Agent might refactor everything
-**âœ… Constraints:** "Do NOT change production code" or "Fix tests only"
+**âŒ No constraints:** Agent might assume it should patch code
+**âœ… Constraints:** "Read-only investigation only. Recommend edits, do not implement."
 
 **âŒ Vague output:** "Fix it" - you don't know what changed
 **âœ… Specific:** "Return summary of root cause and changes"
@@ -151,11 +153,11 @@ Agent 3 â†’ Fix tool-approval-race-conditions.test.ts
 ```
 
 **Results:**
-- Agent 1: Replaced timeouts with event-based waiting
-- Agent 2: Fixed event structure bug (threadId in wrong place)
-- Agent 3: Added wait for async tool execution to complete
+- Agent 1: Identified timeout assumptions and suggested condition-based waits
+- Agent 2: Identified event structure mismatch (threadId nesting)
+- Agent 3: Identified missing wait point before assertion
 
-**Integration:** All fixes independent, no conflicts, full suite green
+**Integration:** Controller implemented all recommended fixes, no conflicts, full suite green
 
 **Time saved:** 3 problems solved in parallel vs sequentially
 
@@ -165,6 +167,12 @@ Agent 3 â†’ Fix tool-approval-race-conditions.test.ts
 2. **Focus** - Each agent has narrow scope, less context to track
 3. **Independence** - Agents don't interfere with each other
 4. **Speed** - 3 problems solved in time of 1
+
+## Capability-Gated Evolution Path
+
+- **Current mode:** read-only research subagents, controller-owned edits.
+- **Future mode (only when explicitly enabled):** write-capable worker subagents with strict non-overlapping file ownership.
+- **Invariant across modes:** independent domain decomposition, explicit integration checkpoints, and mandatory verification before completion claims.
 
 ## Verification
 
