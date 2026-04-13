@@ -98,6 +98,17 @@ When multiple skills could apply, use this order:
 "Let's build X" → brainstorming first, then implementation skills.
 "Fix this bug" → debugging first, then domain-specific skills.
 
+### Behavioral Guardrails for Code Work
+
+When the task involves writing, reviewing, or refactoring code, also invoke `karpathy-guidelines`.
+
+- Use it to surface assumptions before coding.
+- Use it to bias toward the simplest solution that meets the request.
+- Use it to keep edits surgical and request-scoped.
+- Use it to define explicit verification targets for each step.
+
+`karpathy-guidelines` complements process skills and does not replace `test-driven-development`, `systematic-debugging`, or `verification-before-completion`.
+
 ## Skill Types
 
 **Rigid** (TDD, debugging): Follow exactly. Don't adapt away discipline.

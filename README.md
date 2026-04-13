@@ -7,6 +7,7 @@ This repository contains a full Superpowers workflow surface for Cline, includin
 - Skill-first orchestration bootstrapped from TaskStart hook.
 - End-to-end delivery flow: brainstorming -> plan writing -> plan execution -> review -> branch finishing.
 - Verification discipline: TDD workflow, systematic debugging, and verification-before-completion gates.
+- Behavioral guardrails for coding tasks via Karpathy guidelines: explicit assumptions, simplicity-first changes, surgical diffs, and verifiable outcomes.
 - Capability-gated multi-agent architecture:
   - active lane: controller-owned implementation + read-only subagent research/review
   - future lane: reserved write-capable subagent lane behind explicit tooling + governance gates
@@ -28,6 +29,7 @@ This repository contains a full Superpowers workflow surface for Cline, includin
 Core skills in this branch:
 
 - `using-superpowers`: Bootstraps skill usage at task start.
+- `karpathy-guidelines`: Behavioral guardrails to reduce overcomplication and keep code changes scoped and verifiable.
 - `brainstorming`: Clarifies problem and constraints before implementation.
 - `writing-plans`: Turns requirements into executable task checklist.
 - `executing-plans`: Executes plan tasks with verification checkpoints.
