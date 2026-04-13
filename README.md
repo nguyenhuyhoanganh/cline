@@ -1,22 +1,18 @@
 # Cline Superpowers Setup
 
-This repository contains validated setup branches for running Superpowers workflows in Cline.
+This repository contains a full Superpowers workflow surface for Cline, including planning, execution, verification, review, and capability-gated multi-agent orchestration.
 
-## Option Branches
+## Full Feature Surface
 
-- `superpowers-core`: Lean setup, inline-first, no dependency on subagent workflow.
-- `superpowers-full`: Full Superpowers skill bundle with compatibility wiring.
-- `refactor-for-cline`: Refactored sequential single-agent variant.
-
-To use an option:
-
-```bash
-git checkout superpowers-core
-# or
-git checkout superpowers-full
-# or
-git checkout refactor-for-cline
-```
+- Skill-first orchestration bootstrapped from TaskStart hook.
+- End-to-end delivery flow: brainstorming -> plan writing -> plan execution -> review -> branch finishing.
+- Verification discipline: TDD workflow, systematic debugging, and verification-before-completion gates.
+- Capability-gated multi-agent architecture:
+  - active lane: controller-owned implementation + read-only subagent research/review
+  - future lane: reserved write-capable subagent lane behind explicit tooling + governance gates
+- Structured review system: spec compliance gate, code quality gate, and final integration review.
+- Worktree-safe development flow and branch completion workflow.
+- Skill authoring/hardening workflows for maintaining process quality over time.
 
 ## What Is Installed
 
@@ -29,7 +25,7 @@ git checkout refactor-for-cline
 
 ## Skills Capability
 
-Core skills available in both options:
+Core skills in this branch:
 
 - `using-superpowers`: Bootstraps skill usage at task start.
 - `brainstorming`: Clarifies problem and constraints before implementation.
@@ -40,15 +36,12 @@ Core skills available in both options:
 - `test-driven-development`: Drives RED-GREEN-REFACTOR implementation flow.
 - `systematic-debugging`: Root-cause-first debugging workflow.
 - `verification-before-completion`: Prevents "done" claims without evidence.
-
-Only in `superpowers-full`:
-
-- `dispatching-parallel-agents`
-- `subagent-driven-development`
-- `using-git-worktrees`
-- `finishing-a-development-branch`
-- `receiving-code-review`
-- `writing-skills`
+- `dispatching-parallel-agents`: Parallel read-only research orchestration.
+- `subagent-driven-development`: Capability-gated multi-agent workflow with controller-owned implementation.
+- `using-git-worktrees`: Isolated workspace setup for branch-safe execution.
+- `finishing-a-development-branch`: Structured completion and integration options.
+- `receiving-code-review`: Technical review intake and validation workflow.
+- `writing-skills`: Skill authoring and hardening workflow.
 
 ## Hook Behavior
 
@@ -92,7 +85,12 @@ If Cline subagents are disabled, use:
 
 This keeps review workflow usable without `use_subagents`.
 
-## Recommended Choice
+## Simplified Option
 
-- Choose `superpowers-core` if you want minimal, stable, single-agent execution.
-- Choose `superpowers-full` if you want the complete Superpowers process surface.
+If you want a lean, simplified setup:
+
+- `superpowers-core`: inline-first execution profile with reduced process surface.
+
+```bash
+git checkout superpowers-core
+```
